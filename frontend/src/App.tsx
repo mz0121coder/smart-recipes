@@ -1,19 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import CreateRecipe from './pages/createRecipe';
-import ViewRecipes from './pages/viewRecipes';
+import CreateRecipe from './pages/CreateRecipe';
+import ViewRecipes from './pages/ViewRecipes';
 
 function App() {
 	return (
 		<>
-			{/* <div className='text-center mt-4 flex flex-col gap-10'>
-				<h1 className='text-2xl'>Smart Recipes</h1>
-				<h2 className='text-xl'>What would you like to do?</h2>
-			</div>
-			<div>
-				<PageLink />
-				<PageLink />
-			</div> */}
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<HomePage />} />
