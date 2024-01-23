@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express';
 
-const {
+import {
 	getRecipes,
 	getRecipe,
 	createRecipe,
 	deleteRecipe,
 	updateRecipe,
-} = require('../controllers/recipeControllers');
+} from '../controllers/recipeControllers';
 
 const router = express.Router();
 
@@ -21,4 +21,4 @@ router.delete('/:id', deleteRecipe);
 // update a recipe
 router.patch('/:id', updateRecipe);
 
-module.exports = router;
+export default router;
