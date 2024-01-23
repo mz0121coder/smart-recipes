@@ -15,14 +15,14 @@ function HomePage() {
 						page='/create-recipe'
 						imgUrl={tableImg}
 						action='Create a recipe'
-						alt='Table of food dishes'
+						alt='Table of foods'
 					/>
 					<PageLink
 						description='View all your saved recipes'
 						page='/view-recipes'
 						imgUrl={listImg}
 						action='View your recipes'
-						alt='Table of food dishes'
+						alt='Hand written notes'
 					/>
 				</div>
 			</div>

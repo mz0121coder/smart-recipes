@@ -1,6 +1,12 @@
 import { Request, Response } from 'express';
 import Recipe from '../models/recipeModel';
 import mongoose from 'mongoose';
+import OpenAI from 'openai';
+
+// create instance of openAI
+const openai = new OpenAI({
+	apiKey: process.env.OPENAI_KEY,
+});
 
 // get all recipes
 const getRecipes = async (req: Request, res: Response) => {
@@ -33,8 +39,19 @@ const createRecipe = async (req: Request, res: Response) => {
 			.json({ error: 'Please fill in all the fields', emptyFields });
 
 	try {
-		const recipe = await Recipe.create({ title, instructions });
-		res.status(200).json(recipe);
+		// generate & send new recipe with instructions from request
+		const chatCompletion = await openai.chat.completions.create({
+			messages: [{ role: 'user', content: instructions }],
+			model: 'gpt-3.5-turbo',
+		});
+		if (chatCompletion) {
+			const recipe = await Recipe.create({
+				title,
+				instructions: chatCompletion.choices[0].message.content,
+			});
+			// res.status(200).json(chatCompletion.choices[0]);
+			res.status(200).json(recipe);
+		}
 	} catch (error) {
 		res.status(400).json({ error: 'An unknown error occurred' });
 	}
