@@ -47,7 +47,7 @@ const CreateRecipe: React.FC = () => {
 		<div className='flex flex-col justify-center items-center'>
 			<h1 className='text-3xl font-bold my-4'>Create Recipe</h1>
 			<form
-				className='flex flex-col gap-4 w-[95vw] max-w-[500px]'
+				className='flex flex-col gap-4 w-[90vw] max-w-[500px]'
 				onSubmit={handleSubmit}>
 				<label className='text-gray-700 ml-2 font-bold text-lg' htmlFor='title'>
 					Title:
@@ -93,7 +93,7 @@ const CreateRecipe: React.FC = () => {
 					}}
 					required
 				/>
-				<label className='text-gray-700 ml-2 font-bold my-2 text-lg'>
+				<label className='text-gray-700 ml-2 font-bold my-2'>
 					Special Diet Requirements (optional):
 				</label>
 				{requirements.length > 0 && (
@@ -132,21 +132,21 @@ const CreateRecipe: React.FC = () => {
 				)}
 				<button
 					type='button'
-					className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md'
+					className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mb-2 h-[45px]'
 					onClick={() => setShowReqModal(true)}>
 					Add Requirement
 				</button>
 				<div className='flex gap-4'>
 					<button
 						type='submit'
-						className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md flex-1'
+						className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md flex-1 h-[45px]'
 						onClick={handleCancel}>
 						Cancel
 					</button>
 					<button
 						type='submit'
-						className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md flex-1'>
-						Create Recipe
+						className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md flex-1 h-[45px]'>
+						Create
 					</button>
 				</div>
 			</form>
@@ -196,7 +196,7 @@ const CreateRecipe: React.FC = () => {
 						<div className='flex justify-center gap-4'>
 							<button
 								type='button'
-								className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md w-[45%]'
+								className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md w-[50%]'
 								onClick={() => {
 									navigate('/');
 								}}>
