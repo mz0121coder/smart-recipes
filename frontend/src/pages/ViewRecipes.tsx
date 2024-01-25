@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
-import { FaTrashAlt } from 'react-icons/fa';
 import { IoArrowBack } from 'react-icons/io5';
 
 interface Recipe {
@@ -14,9 +13,11 @@ interface Recipe {
 }
 
 const ViewRecipes: React.FC = () => {
+	const navigate = useNavigate();
 	const [recipes, setRecipes] = useState<Recipe[]>(() =>
 		JSON.parse(localStorage.getItem('recipes') || '[]')
 	);
+
 	const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
 
 	const [isLoading, setIsLoading] = useState(false);
@@ -77,7 +78,11 @@ const ViewRecipes: React.FC = () => {
 				filteredRecipes.map((item: Recipe) => (
 					<div
 						key={item._id}
-						className='bg-white shadow-md p-6 rounded-md mb-10 [transition:background_800ms] hover:bg-slate-200 flex justify-between items-start cursor-pointer'>
+						className='bg-white shadow-md p-6 rounded-md mb-10 [transition:background_800ms] hover:bg-slate-200 flex justify-between items-start cursor-pointer'
+						onClick={() => {
+							localStorage.setItem('recipe', JSON.stringify(item));
+							navigate(`/view-recipes/${item._id}`);
+						}}>
 						<div>
 							<h2 className='text-2xl font-bold mb-2'>{item.title}</h2>
 							<p className='text-gray-600 font-bold'>
@@ -86,18 +91,6 @@ const ViewRecipes: React.FC = () => {
 								})}`}
 							</p>
 						</div>
-						{/* <div className='flex gap-5'>
-							<button
-								type='button'
-								className='bg-blue-500 hover:bg-blue-700 text-white font-bold  rounded-md mt-2 w-[60px]'>
-								View
-							</button>
-						</div> */}
-						<button
-							type='button'
-							className='bg-red-500 hover:bg-red-700 text-white font-bold  rounded-md mt-2  grid place-items-center w-[100px] h-[40px]'>
-							<FaTrashAlt />
-						</button>
 					</div>
 				))}
 		</div>

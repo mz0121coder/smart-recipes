@@ -9,6 +9,7 @@ const CreateRecipe: React.FC = () => {
 	const [requirements, setRequirements] = useState<string[]>([]);
 	const [showReqModal, setShowReqModal] = useState(false);
 	const [showCancelModal, setShowCancelModal] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const specialDiets: string[] = [
 		'Vegetarian',
@@ -39,11 +40,40 @@ const CreateRecipe: React.FC = () => {
 		}
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		const guidelines = `Please generate a great, customised recipe based on these guidelines:
+		Title: ${title}
+		Servings: ${servings}
+		Special Diet Requirements (optional): ${
+			requirements.length > 0 ? requirements.join(', ') : 'N/A'
+		}
+		Other instructions (optional): ${instructions.length > 0 ? instructions : ''}
+		
+		Your response should only consist of the recipe title, ingredients (unordered list) and instructions (numbered list of steps to follow)`;
+
+		try {
+			setIsLoading(true);
+			const response = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ title, instructions: guidelines }),
+			});
+			const data = await response.json();
+			if (data) {
+				console.log({ data });
+				setIsLoading(false);
+				navigate('/view-recipes');
+			}
+		} catch (error) {
+			console.log(error);
+			setIsLoading(false);
+		}
 	};
 
-	return (
+	return isLoading ? (
+		<h3>Creating new recipe...</h3>
+	) : (
 		<div className='flex flex-col justify-center items-center'>
 			<h1 className='text-3xl font-bold my-4'>Create Recipe</h1>
 			<form
