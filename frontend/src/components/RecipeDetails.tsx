@@ -1,14 +1,4 @@
-import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
-
-interface SelectedRecipe {
-	_id: string;
-	title: string;
-	instructions: string;
-	createdAt: string;
-	updatedAt: string;
-	__v: number;
-}
 
 const RecipeDetails: React.FC = () => {
 	const recipe: SelectedRecipe = JSON.parse(
@@ -46,5 +36,14 @@ const RecipeDetails: React.FC = () => {
 		</div>
 	);
 };
+
+interface SelectedRecipe {
+	_id: string;
+	title: string;
+	instructions: string;
+	createdAt: string;
+	updatedAt: string;
+	__v: number;
+}
 
 export default RecipeDetails;

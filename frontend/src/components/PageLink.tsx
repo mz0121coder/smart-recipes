@@ -1,13 +1,5 @@
 import { Link } from 'react-router-dom';
 
-interface PageLinkProps {
-	description: string;
-	page: string;
-	imgUrl: string;
-	action: string;
-	alt: string;
-}
-
 const PageLink: React.FC<PageLinkProps> = ({
 	description,
 	page,
@@ -27,5 +19,13 @@ const PageLink: React.FC<PageLinkProps> = ({
 		</div>
 	);
 };
+
+interface PageLinkProps {
+	description: string;
+	page: string;
+	imgUrl: string;
+	action: string;
+	alt: string;
+}
 
 export default PageLink;

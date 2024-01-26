@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { IoArrowBack } from 'react-icons/io5';
-
-interface Recipe {
-	_id: string;
-	title: string;
-	instructions: string;
-	createdAt: string;
-	updatedAt: string;
-	__v: number;
-}
+import Loader from '../components/Loader';
 
 const ViewRecipes: React.FC = () => {
 	const navigate = useNavigate();
@@ -26,8 +18,8 @@ const ViewRecipes: React.FC = () => {
 		const fetchRecipes = async () => {
 			setIsLoading(true);
 			try {
-				const res = await fetch(`${import.meta.env.VITE_BASE_URL}`);
-				const data = await res.json();
+				const response = await fetch(`${import.meta.env.VITE_BASE_URL}`);
+				const data = await response.json();
 				if (data) {
 					console.log(data);
 					setRecipes(data);
@@ -43,7 +35,9 @@ const ViewRecipes: React.FC = () => {
 		if (!recipes.length) fetchRecipes();
 	}, [recipes]);
 
-	return (
+	return isLoading ? (
+		<Loader message={'Loading recipes...'} />
+	) : (
 		<div className='w-[90vw] max-w-[700px] mx-auto mt-8 cursor-pointer'>
 			<div className='flex gap-4 justify-center items-start mb-4'>
 				<Link to='/'>
@@ -73,7 +67,6 @@ const ViewRecipes: React.FC = () => {
 					}}
 				/>
 			</div>
-			{isLoading && <h3>Loading recipes...</h3>}
 			{filteredRecipes &&
 				filteredRecipes.map((item: Recipe) => (
 					<div
@@ -96,4 +89,14 @@ const ViewRecipes: React.FC = () => {
 		</div>
 	);
 };
+
+interface Recipe {
+	_id: string;
+	title: string;
+	instructions: string;
+	createdAt: string;
+	updatedAt: string;
+	__v: number;
+}
+
 export default ViewRecipes;
