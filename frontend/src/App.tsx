@@ -4,6 +4,7 @@ import CreateRecipe from './pages/CreateRecipe';
 import ViewRecipes from './pages/ViewRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import NotFound from './components/NotFound';
+import UpdateRecipe from './pages/UpdateRecipe';
 
 function App() {
 	return (
@@ -14,6 +15,7 @@ function App() {
 					<Route path='/create-recipe' element={<CreateRecipe />} />
 					<Route path='/view-recipes' element={<ViewRecipes />} />
 					<Route path='/view-recipes/:id' element={<RecipeDetails />} />
+					<Route path='/view-recipes/:id/update' element={<UpdateRecipe />} />
 					<Route path='*' element={<NotFound />} />
 				</Routes>
 			</BrowserRouter>

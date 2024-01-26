@@ -17,7 +17,8 @@ const RecipeDetails: React.FC = () => {
 
 	useEffect(() => {
 		if (selectedOption === 'delete') setShowConfirmDelete(true);
-	}, [selectedOption]);
+		if (selectedOption === 'update') navigate(`/view-recipes/${id}/update`);
+	}, [selectedOption, id, navigate]);
 
 	// find and delete recipe with matching id from DB
 	const handleDelete = async () => {
@@ -28,6 +29,7 @@ const RecipeDetails: React.FC = () => {
 			const data = await response.json();
 			if (data) {
 				console.log(data);
+				localStorage.removeItem('recipe');
 				navigate('/view-recipes');
 			}
 		} catch (error) {
