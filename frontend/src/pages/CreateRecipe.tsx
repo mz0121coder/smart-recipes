@@ -81,7 +81,7 @@ const CreateRecipe: React.FC = () => {
 		/>
 	) : (
 		<>
-			<div className='flex flex-col justify-center items-center'>
+			<div className='flex flex-col justify-center items-center mt-8'>
 				<h1 className='text-3xl font-bold my-4'>Create Recipe</h1>
 				<form
 					className='flex flex-col gap-4 w-[90vw] max-w-[500px]'
