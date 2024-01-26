@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import CreateRecipe from './pages/CreateRecipe';
 import ViewRecipes from './pages/ViewRecipes';
-import RecipeDetails from './components/RecipeDetails';
+import RecipeDetails from './pages/RecipeDetails';
 import NotFound from './components/NotFound';
 
 function App() {

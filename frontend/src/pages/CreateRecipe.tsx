@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingGame from '../components/LoadingGame';
+import ConfirmModal from '../components/ConfirmModal';
 
 const CreateRecipe: React.FC = () => {
 	const navigate = useNavigate();
@@ -35,7 +36,7 @@ const CreateRecipe: React.FC = () => {
 	];
 
 	const handleCancel = () => {
-		if ([title, requirements].every(el => el.length) && servings > 0) {
+		if (title.length && servings > 0) {
 			setShowCancelModal(true);
 		} else {
 			navigate('/');
@@ -53,7 +54,7 @@ const CreateRecipe: React.FC = () => {
 		Other instructions (optional): ${instructions.length > 0 ? instructions : ''}
 		
 		Your response should only consist of the recipe title, ingredients (unordered list) and instructions (numbered list of steps to follow)`;
-
+		console.log(e.target);
 		try {
 			setIsLoading(true);
 			setIsPlaying(true);
@@ -177,9 +178,9 @@ const CreateRecipe: React.FC = () => {
 						onClick={() => setShowReqModal(true)}>
 						Add Requirement
 					</button>
-					<div className='flex gap-4'>
+					<div className='flex gap-4 mb-8'>
 						<button
-							type='submit'
+							type='button'
 							className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md flex-1 h-[45px]'
 							onClick={handleCancel}>
 							Cancel
@@ -229,29 +230,14 @@ const CreateRecipe: React.FC = () => {
 					</div>
 				)}
 				{showCancelModal && (
-					<div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
-						<div className='bg-white p-4 rounded-md w-[95vw] max-w-[350px] text-center'>
-							<h2 className='text-lg font-bold mb-2'>
-								Are you sure you want to cancel?
-							</h2>
-							<div className='flex justify-center gap-4'>
-								<button
-									type='button'
-									className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md w-[50%]'
-									onClick={() => {
-										navigate('/');
-									}}>
-									Yes
-								</button>
-								<button
-									type='button'
-									className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md w-[45%]'
-									onClick={() => setShowCancelModal(false)}>
-									No
-								</button>
-							</div>
-						</div>
-					</div>
+					<ConfirmModal
+						message='Are you sure you want to cancel?'
+						handleCancel={() => setShowCancelModal(false)}
+						handleConfirm={() => {
+							setShowCancelModal(false);
+							navigate('/');
+						}}
+					/>
 				)}
 			</div>
 		</>
