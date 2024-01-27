@@ -18,7 +18,9 @@ const ViewRecipes: React.FC = () => {
 		const fetchRecipes = async () => {
 			setIsLoading(true);
 			try {
-				const response = await fetch(`${import.meta.env.VITE_BASE_URL}`);
+				const response = await fetch(
+					`${import.meta.env.VITE_BASE_URL}/recipes`
+				);
 				const data = await response.json();
 				if (data) {
 					console.log(data);
