@@ -4,6 +4,7 @@ import LoadingGame from '../components/LoadingGame';
 import ConfirmModal from '../components/ConfirmModal';
 
 const CreateRecipe: React.FC = () => {
+	const user = JSON.parse(localStorage.getItem('user') || 'null');
 	const navigate = useNavigate();
 	const [title, setTitle] = useState('');
 	const [instructions, setInstructions] = useState('');
@@ -54,18 +55,20 @@ const CreateRecipe: React.FC = () => {
 		Other instructions (optional): ${instructions.length > 0 ? instructions : ''}
 		
 		Your response should only consist of the recipe title, ingredients (unordered list) and instructions (numbered list of steps to follow)`;
-		console.log(e.target);
 		try {
 			setIsLoading(true);
 			setIsPlaying(true);
 			const response = await fetch(`${import.meta.env.VITE_BASE_URL}/recipes`, {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${user.token}`,
+				},
 				body: JSON.stringify({ title, instructions: guidelines }),
 			});
 			const data = await response.json();
 			if (data) {
-				console.log({ data });
+				console.log(data);
 				setIsLoading(false);
 			}
 		} catch (error) {

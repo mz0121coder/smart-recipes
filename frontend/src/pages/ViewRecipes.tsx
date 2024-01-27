@@ -10,6 +10,8 @@ const ViewRecipes: React.FC = () => {
 		JSON.parse(localStorage.getItem('recipes') || '[]')
 	);
 
+	const user = JSON.parse(localStorage.getItem('user') || 'null');
+
 	const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
 
 	const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +21,10 @@ const ViewRecipes: React.FC = () => {
 			setIsLoading(true);
 			try {
 				const response = await fetch(
-					`${import.meta.env.VITE_BASE_URL}/recipes`
+					`${import.meta.env.VITE_BASE_URL}/recipes`,
+					{
+						headers: { Authorization: `Bearer ${user.token}` },
+					}
 				);
 				const data = await response.json();
 				if (data) {
@@ -35,7 +40,7 @@ const ViewRecipes: React.FC = () => {
 			}
 		};
 		if (!filteredRecipes.length) fetchRecipes();
-	}, [recipes, filteredRecipes]);
+	}, [recipes, filteredRecipes, user.token]);
 
 	return isLoading ? (
 		<Loader message={'Loading recipes...'} />

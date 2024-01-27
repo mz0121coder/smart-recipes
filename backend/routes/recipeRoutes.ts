@@ -1,5 +1,5 @@
 import express from 'express';
-
+import requireAuth from '../middleware/requireAuth';
 import {
 	getRecipes,
 	getRecipe,
@@ -9,6 +9,9 @@ import {
 } from '../controllers/recipeControllers';
 
 const router = express.Router();
+
+// require auth for all recipe routes
+router.use(requireAuth);
 
 // get all recipes
 router.get('/', getRecipes);
