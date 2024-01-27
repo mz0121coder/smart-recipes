@@ -3,6 +3,14 @@ import Recipe from '../models/recipeModel';
 import mongoose from 'mongoose';
 import OpenAI from 'openai';
 
+declare global {
+	namespace Express {
+		interface Request {
+			user: { _id: any };
+		}
+	}
+}
+
 // create instance of openAI
 const openai = new OpenAI({
 	apiKey: process.env.OPENAI_KEY,

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
@@ -13,7 +13,7 @@ const loginUser = async (req: Request, res: Response) => {
 		// create a token for logged in user
 		const token = createToken(user._id);
 		res.status(200).json({ email, token });
-	} catch (error) {
+	} catch (error: any) {
 		res.status(400).json({ error: error.message });
 	}
 };
@@ -26,7 +26,7 @@ const signupUser = async (req: Request, res: Response) => {
 		// create a token for signed up user
 		const token = createToken(user._id);
 		res.status(200).json({ email, token });
-	} catch (error) {
+	} catch (error: any) {
 		res.status(400).json({ error: error.message });
 	}
 };
