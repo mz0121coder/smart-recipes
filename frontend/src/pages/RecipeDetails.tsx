@@ -24,9 +24,12 @@ const RecipeDetails: React.FC = () => {
 	// find and delete recipe with matching id from DB
 	const handleDelete = async () => {
 		try {
-			const response = await fetch(`${import.meta.env.VITE_BASE_URL}/${id}`, {
-				method: 'DELETE',
-			});
+			const response = await fetch(
+				`${import.meta.env.VITE_BASE_URL}/recipes/${id}`,
+				{
+					method: 'DELETE',
+				}
+			);
 			const data = await response.json();
 			if (data) {
 				console.log(data);

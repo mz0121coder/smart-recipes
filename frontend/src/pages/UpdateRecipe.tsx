@@ -13,11 +13,14 @@ const UpdateRecipe: React.FC = () => {
 
 	const handleUpdate = async () => {
 		try {
-			const response = await fetch(`${import.meta.env.VITE_BASE_URL}/${id}`, {
-				method: 'PATCH',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ title, instructions }),
-			});
+			const response = await fetch(
+				`${import.meta.env.VITE_BASE_URL}/recipes/${id}`,
+				{
+					method: 'PATCH',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ title, instructions }),
+				}
+			);
 			const data = await response.json();
 			if (data) {
 				console.log(data);

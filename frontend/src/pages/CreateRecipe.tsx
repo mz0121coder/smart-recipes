@@ -58,7 +58,7 @@ const CreateRecipe: React.FC = () => {
 		try {
 			setIsLoading(true);
 			setIsPlaying(true);
-			const response = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
+			const response = await fetch(`${import.meta.env.VITE_BASE_URL}/recipes`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ title, instructions: guidelines }),
