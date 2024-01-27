@@ -10,7 +10,9 @@ const openai = new OpenAI({
 
 // get all recipes
 const getRecipes = async (req: Request, res: Response) => {
-	const recipes = await Recipe.find({}).sort({ updatedAt: -1 });
+	const user_id = req.user._id;
+	// only show recipes created by current user
+	const recipes = await Recipe.find({ user_id }).sort({ updatedAt: -1 });
 	res.status(200).json(recipes);
 };
 
@@ -44,10 +46,13 @@ const createRecipe = async (req: Request, res: Response) => {
 			messages: [{ role: 'user', content: instructions }],
 			model: 'gpt-3.5-turbo',
 		});
+		// assign recipe to current user
+		const user_id = req.user._id;
 		if (chatCompletion) {
 			const recipe = await Recipe.create({
 				title,
 				instructions: chatCompletion.choices[0].message.content,
+				user_id,
 			});
 			// res.status(200).json(chatCompletion.choices[0]);
 			res.status(200).json(recipe);
