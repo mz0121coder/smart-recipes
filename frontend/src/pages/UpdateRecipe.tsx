@@ -47,7 +47,7 @@ const UpdateRecipe: React.FC = () => {
 			<div className='flex flex-col justify-center items-center min-h-screen bg-gray-100'>
 				<div className='max-w-3xl w-[95%] bg-white shadow-md rounded-md p-6'>
 					<textarea
-						className='text-3xl font-bold bg-gray-100 border-2 rounded-md w-[200px] h-[50px] border-gray-300'
+						className='text-2xl font-bold bg-gray-100 border-2 rounded-md w-full h-[50px] border-gray-300 mb-2 pl-2 pt-1'
 						value={title}
 						onChange={e => setTitle(e.target.value)}
 					/>

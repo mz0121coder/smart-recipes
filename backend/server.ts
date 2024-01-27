@@ -2,7 +2,9 @@ require('dotenv').config();
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+// routes for recipes and login + signup
 import recipeRoutes from './routes/recipeRoutes';
+import userRoutes from './routes/userRoutes';
 
 // express app
 const app = express();
@@ -18,6 +20,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/api/recipes', recipeRoutes);
+app.use('/api/user', userRoutes);
 
 // connect to db
 if (MONGO_URI)
