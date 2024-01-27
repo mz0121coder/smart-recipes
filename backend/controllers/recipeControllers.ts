@@ -10,7 +10,7 @@ const openai = new OpenAI({
 
 // get all recipes
 const getRecipes = async (req: Request, res: Response) => {
-	const recipes = await Recipe.find({}).sort({ createdAt: -1 });
+	const recipes = await Recipe.find({}).sort({ updatedAt: -1 });
 	res.status(200).json(recipes);
 };
 

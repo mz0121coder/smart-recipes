@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { IoArrowBack } from 'react-icons/io5';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
+import Swal from 'sweetalert2';
 
 const RecipeDetails: React.FC = () => {
 	const { id } = useParams();
@@ -31,6 +32,13 @@ const RecipeDetails: React.FC = () => {
 				console.log(data);
 				localStorage.removeItem('recipe');
 				navigate('/view-recipes');
+				Swal.fire({
+					title: 'Recipe deleted',
+					text: `${data.title} has been deleted`,
+					icon: 'success',
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		} catch (error) {
 			console.log(error);

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
+import Swal from 'sweetalert2';
 
 const UpdateRecipe: React.FC = () => {
 	const navigate = useNavigate();
@@ -21,6 +22,13 @@ const UpdateRecipe: React.FC = () => {
 			if (data) {
 				console.log(data);
 				navigate(`/view-recipes`);
+				Swal.fire({
+					title: 'Recipe updated',
+					text: `${title} has been updated`,
+					icon: 'success',
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		} catch (error) {
 			console.log(error);

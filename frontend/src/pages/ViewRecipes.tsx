@@ -32,8 +32,8 @@ const ViewRecipes: React.FC = () => {
 				setIsLoading(false);
 			}
 		};
-		if (!recipes.length) fetchRecipes();
-	}, [recipes]);
+		if (!filteredRecipes.length) fetchRecipes();
+	}, [recipes, filteredRecipes]);
 
 	return isLoading ? (
 		<Loader message={'Loading recipes...'} />
@@ -79,7 +79,7 @@ const ViewRecipes: React.FC = () => {
 						<div>
 							<h2 className='text-2xl font-bold mb-2'>{item.title}</h2>
 							<p className='text-gray-600 font-bold'>
-								{`Created: ${formatDistanceToNow(new Date(item.createdAt), {
+								{`Updated: ${formatDistanceToNow(new Date(item.updatedAt), {
 									addSuffix: true,
 								})}`}
 							</p>
