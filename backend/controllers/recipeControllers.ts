@@ -6,7 +6,7 @@ import OpenAI from 'openai';
 declare global {
 	namespace Express {
 		interface Request {
-			user: { _id: any };
+			user: { _id: string };
 		}
 	}
 }
@@ -56,6 +56,7 @@ const createRecipe = async (req: Request, res: Response) => {
 		});
 		// assign recipe to current user
 		const user_id = req.user._id;
+		console.log({ req });
 		if (chatCompletion) {
 			const recipe = await Recipe.create({
 				title,

@@ -1,31 +1,41 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../slices/userSlice';
+import { login, logout } from '../slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
+	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
+
 	const dispatch = useDispatch();
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		try {
-			const response = await fetch(
-				`${import.meta.env.VITE_BASE_URL}/user/login`,
-				{
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ email, password }),
-				}
-			);
-			const data = await response.json();
-			if (data) {
-				console.log(data);
-				dispatch(login(data));
-				localStorage.setItem('user', JSON.stringify(data));
+		const response = await fetch(
+			`${import.meta.env.VITE_BASE_URL}/user/login`,
+			{
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ email, password }),
 			}
-		} catch (error) {
-			console.log(error);
+		);
+		const data = await response.json();
+		// if user has valid credentials, update global state and store token
+		if (data && !('error' in data)) {
+			console.log(data);
+			dispatch(login(data));
+			localStorage.setItem('user', JSON.stringify(data));
+			navigate('/');
+		} else {
+			setErrorMsg(
+				!email.length || !password.length
+					? 'All fields must be filled'
+					: 'Invalid credentials'
+			);
+			dispatch(logout());
+			localStorage.removeItem('user');
 		}
 	};
 
@@ -71,6 +81,11 @@ const Login: React.FC = () => {
 						Log In
 					</button>
 				</div>
+				{errorMsg.length > 0 && (
+					<p className='text-red-500 text-md font-bold italic mt-2'>
+						{errorMsg}
+					</p>
+				)}
 			</form>
 		</div>
 	);

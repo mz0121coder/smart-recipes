@@ -2,6 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
+declare global {
+	namespace Express {
+		interface Request {
+			user: { _id: string };
+		}
+	}
+}
+
 const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
 	// verify authentication
 	const { authorization } = req.headers;
