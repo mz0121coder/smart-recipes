@@ -1,24 +1,27 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import CreateRecipe from './pages/CreateRecipe';
 import ViewRecipes from './pages/ViewRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import NotFound from './components/NotFound';
 import UpdateRecipe from './pages/UpdateRecipe';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
+import { login } from './slices/userSlice';
 
 function App() {
-	const user = useSelector((state: RootState) => state.user);
-	// const dispatch = useDispatch();
+	const user = useSelector((state: RootState) => state.user.user);
+	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	const localUser = JSON.parse(localStorage.getItem('user') || 'null');
-	// 	if (localUser) dispatch(localUser);
-	// 	console.log({ localUser });
-	// }, [dispatch]);
+	useEffect(() => {
+		const localUser = JSON.parse(localStorage.getItem('user') || 'null');
+		if (localUser) dispatch(login(localUser));
+	}, [dispatch]);
+
+	console.log(!user);
 
 	return (
 		<>
@@ -31,6 +34,10 @@ function App() {
 					<Route
 						path='/login'
 						element={!user ? <Login /> : <Navigate to='/' />}
+					/>
+					<Route
+						path='/signup'
+						element={!user ? <Signup /> : <Navigate to='/' />}
 					/>
 					<Route
 						path='/create-recipe'

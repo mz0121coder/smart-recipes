@@ -4,17 +4,18 @@ import { useDispatch } from 'react-redux';
 import { login, logout } from '../slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 
-const Login: React.FC = () => {
+const Signup: React.FC = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
+
 	const dispatch = useDispatch();
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const response = await fetch(
-			`${import.meta.env.VITE_BASE_URL}/user/login`,
+			`${import.meta.env.VITE_BASE_URL}/user/signup`,
 			{
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -24,12 +25,13 @@ const Login: React.FC = () => {
 		const data = await response.json();
 		// if user has valid credentials, update global state and store token
 		if (data && !('error' in data)) {
+			console.log(data);
 			dispatch(login(data));
 			localStorage.setItem('user', JSON.stringify(data));
 			navigate('/');
 			Swal.fire({
-				title: 'Logged in',
-				text: `You are now logged in`,
+				title: 'Signed up',
+				text: `You have succesfully signed up`,
 				icon: 'success',
 				showConfirmButton: false,
 				timer: 1500,
@@ -84,7 +86,7 @@ const Login: React.FC = () => {
 					<button
 						className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
 						type='submit'>
-						Log In
+						Sign Up
 					</button>
 				</div>
 				{errorMsg.length > 0 && (
@@ -97,4 +99,4 @@ const Login: React.FC = () => {
 	);
 };
 
-export default Login;
+export default Signup;
