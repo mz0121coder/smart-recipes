@@ -1,6 +1,5 @@
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
-import Signup from './pages/Signup';
 import CreateRecipe from './pages/CreateRecipe';
 import ViewRecipes from './pages/ViewRecipes';
 import RecipeDetails from './pages/RecipeDetails';
@@ -21,8 +20,6 @@ function App() {
 		if (localUser) dispatch(login(localUser));
 	}, [dispatch]);
 
-	console.log(!user);
-
 	return (
 		<>
 			<BrowserRouter>
@@ -34,10 +31,6 @@ function App() {
 					<Route
 						path='/login'
 						element={!user ? <Login /> : <Navigate to='/' />}
-					/>
-					<Route
-						path='/signup'
-						element={!user ? <Signup /> : <Navigate to='/' />}
 					/>
 					<Route
 						path='/create-recipe'

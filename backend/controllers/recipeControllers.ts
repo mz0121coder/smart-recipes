@@ -56,7 +56,6 @@ const createRecipe = async (req: Request, res: Response) => {
 		});
 		// assign recipe to current user
 		const user_id = req.user._id;
-		console.log({ req });
 		if (chatCompletion) {
 			const recipe = await Recipe.create({
 				title,
