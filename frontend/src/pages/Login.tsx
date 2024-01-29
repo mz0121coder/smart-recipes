@@ -14,7 +14,7 @@ const Login: React.FC = () => {
 	) => {
 		e.preventDefault();
 		const response = await fetch(
-			`${import.meta.env.VITE_BASE_URL}/user/login`,
+			`https://smart-recipes.onrender.com/api/user/login`,
 			{
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -49,7 +49,7 @@ const Login: React.FC = () => {
 	) => {
 		e.preventDefault();
 		const response = await fetch(
-			`${import.meta.env.VITE_BASE_URL}/user/signup`,
+			`https://smart-recipes.onrender.com/api/user/signup`,
 			{
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },

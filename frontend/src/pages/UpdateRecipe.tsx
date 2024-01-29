@@ -14,7 +14,7 @@ const UpdateRecipe: React.FC = () => {
 	const handleUpdate = async () => {
 		try {
 			const response = await fetch(
-				`${import.meta.env.VITE_BASE_URL}/recipes/${id}`,
+				`https://smart-recipes.onrender.com/api/recipes/${id}`,
 				{
 					method: 'PATCH',
 					headers: { 'Content-Type': 'application/json' },

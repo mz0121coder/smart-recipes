@@ -1,6 +1,6 @@
 import PageLink from '../components/PageLink';
 import listImg from '../assets/list.jpg';
-import tableImg from '../assets/table-bg.jpg';
+import tableImg from '../assets/table.jpg';
 import ConfirmModal from '../components/ConfirmModal';
 import Swal from 'sweetalert2';
 import { FaSignOutAlt } from 'react-icons/fa';
@@ -19,7 +19,6 @@ function HomePage() {
 					message='Do you want to sign out?'
 					handleCancel={() => setShowLogoutModal(false)}
 					handleConfirm={() => {
-						console.log('SIGN OUT WILL HAPPEN HERE');
 						dispatch(logout());
 						Swal.fire({
 							title: 'Signed out',
@@ -33,12 +32,12 @@ function HomePage() {
 				/>
 			)}
 			<div className='mt-8 flex flex-col items-center justify-center gap-10'>
-				<div className='flex gap-10'>
-					<h1 className='[@media(max-width:350px)]:text-[24px] text-3xl font-bold'>
+				<div className='flex gap-10 items-center'>
+					<h1 className='[@media(max-width:350px)]:text-[27px] text-3xl font-bold'>
 						Smart Recipes
 					</h1>
 					<button
-						className='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded grid place-items-center w-20'
+						className='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded grid place-items-center w-20 h-10'
 						onClick={() => setShowLogoutModal(true)}>
 						<FaSignOutAlt />
 					</button>

@@ -21,7 +21,7 @@ const ViewRecipes: React.FC = () => {
 			setIsLoading(true);
 			try {
 				const response = await fetch(
-					`${import.meta.env.VITE_BASE_URL}/recipes`,
+					`https://smart-recipes.onrender.com/api/recipes`,
 					{
 						headers: { Authorization: `Bearer ${user.token}` },
 					}

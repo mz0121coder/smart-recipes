@@ -58,14 +58,17 @@ const CreateRecipe: React.FC = () => {
 		try {
 			setIsLoading(true);
 			setIsPlaying(true);
-			const response = await fetch(`${import.meta.env.VITE_BASE_URL}/recipes`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${user.token}`,
-				},
-				body: JSON.stringify({ title, instructions: guidelines }),
-			});
+			const response = await fetch(
+				`https://smart-recipes.onrender.com/api/recipes`,
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${user.token}`,
+					},
+					body: JSON.stringify({ title, instructions: guidelines }),
+				}
+			);
 			const data = await response.json();
 			if (data) {
 				console.log(data);

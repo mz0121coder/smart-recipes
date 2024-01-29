@@ -25,7 +25,7 @@ const RecipeDetails: React.FC = () => {
 	const handleDelete = async () => {
 		try {
 			const response = await fetch(
-				`${import.meta.env.VITE_BASE_URL}/recipes/${id}`,
+				`https://smart-recipes.onrender.com/api/recipes/${id}`,
 				{
 					method: 'DELETE',
 				}
