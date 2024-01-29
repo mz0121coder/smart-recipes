@@ -31,7 +31,7 @@ function HomePage() {
 					}}
 				/>
 			)}
-			<div className='mt-8 flex flex-col items-center justify-center gap-10'>
+			<div className='my-6 flex flex-col justify-center items-center gap-10'>
 				<div className='flex gap-10 items-center'>
 					<h1 className='[@media(max-width:350px)]:text-[27px] text-3xl font-bold'>
 						Smart Recipes
@@ -43,7 +43,7 @@ function HomePage() {
 					</button>
 				</div>
 				<h2 className='text-xl'>What would you like to do?</h2>
-				<div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+				<div className='grid grid-cols-1 sm:grid-cols-2 gap-8 mb-4'>
 					<PageLink
 						description='Use AI to create a custom recipe!'
 						page='/create-recipe'

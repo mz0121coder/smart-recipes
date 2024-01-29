@@ -45,14 +45,15 @@ const ViewRecipes: React.FC = () => {
 	return isLoading ? (
 		<Loader message={'Loading recipes...'} />
 	) : (
-		<div className='w-[90vw] max-w-[700px] mx-auto mt-8 cursor-pointer'>
-			<div className='flex gap-4 justify-center items-start mb-4'>
+		<div className='w-[90vw] max-w-[700px] mx-auto mt-8'>
+			<div className='flex justify-between items-start mb-4'>
 				<Link to='/'>
 					<div className='bg-gray-200 h-10 w-20 grid place-items-center rounded [transition:background_800ms] hover:bg-gray-500 cursor-pointer flex-1'>
 						<IoArrowBack />
 					</div>
 				</Link>
 				<h1 className='text-3xl font-bold mb-4'>Recipes</h1>
+				<div></div>
 			</div>
 			<div className='flex items-center justify-center gap-4 mb-8'>
 				<label htmlFor='recipe-input' className='font-bold'>
