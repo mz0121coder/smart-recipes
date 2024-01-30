@@ -1,24 +1,22 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { IoArrowBack } from 'react-icons/io5';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../store';
+import { selectRecipe } from '../slices/recipeSlice';
 import Loader from '../components/Loader';
 
 const ViewRecipes: React.FC = () => {
 	const navigate = useNavigate();
-	const [recipes, setRecipes] = useState<Recipe[]>(() =>
-		JSON.parse(localStorage.getItem('recipes') || '[]')
-	);
-
-	const user = JSON.parse(localStorage.getItem('user') || 'null');
-
+	const dispatch = useDispatch();
+	const [recipes, setRecipes] = useState<Recipe[]>(() => []);
+	const user = useSelector((state: RootState) => state.user.user);
 	const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
-
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchRecipes = async () => {
-			setIsLoading(true);
 			try {
 				const response = await fetch(
 					`https://smart-recipes.onrender.com/api/recipes`,
@@ -28,10 +26,8 @@ const ViewRecipes: React.FC = () => {
 				);
 				const data = await response.json();
 				if (data) {
-					console.log(data);
 					setRecipes(data);
 					setFilteredRecipes(data);
-					localStorage.setItem('recipes', JSON.stringify(recipes));
 					setIsLoading(false);
 				}
 			} catch (error) {
@@ -39,8 +35,8 @@ const ViewRecipes: React.FC = () => {
 				setIsLoading(false);
 			}
 		};
-		if (!filteredRecipes.length) fetchRecipes();
-	}, [recipes, filteredRecipes, user.token]);
+		if (isLoading) fetchRecipes();
+	}, [isLoading, user.token]);
 
 	return isLoading ? (
 		<Loader message={'Loading recipes...'} />
@@ -76,18 +72,18 @@ const ViewRecipes: React.FC = () => {
 				/>
 			</div>
 			{filteredRecipes &&
-				filteredRecipes.map((item: Recipe) => (
+				filteredRecipes.map((recipe: Recipe) => (
 					<div
-						key={item._id}
+						key={recipe._id}
 						className='bg-white shadow-md p-6 rounded-md mb-10 [transition:background_800ms] hover:bg-slate-200 flex justify-between items-start cursor-pointer'
 						onClick={() => {
-							localStorage.setItem('recipe', JSON.stringify(item));
-							navigate(`/view-recipes/${item._id}`);
+							dispatch(selectRecipe(recipe));
+							navigate(`/view-recipes/${recipe._id}`);
 						}}>
 						<div>
-							<h2 className='text-2xl font-bold mb-2'>{item.title}</h2>
+							<h2 className='text-2xl font-bold mb-2'>{recipe.title}</h2>
 							<p className='text-gray-600 font-bold'>
-								{`Updated: ${formatDistanceToNow(new Date(item.updatedAt), {
+								{`Updated: ${formatDistanceToNow(new Date(recipe.updatedAt), {
 									addSuffix: true,
 								})}`}
 							</p>

@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
 import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 const UpdateRecipe: React.FC = () => {
 	const navigate = useNavigate();
-	const recipe = JSON.parse(localStorage.getItem('recipe') || '{}');
+	const user = useSelector((state: RootState) => state.user.user);
+	const recipe = useSelector((state: RootState) => state.recipe.recipe);
 	const [title, setTitle] = useState(recipe.title);
 	const [instructions, setInstructions] = useState(recipe.instructions);
 	const [showConfirmCancel, setShowConfirmCancel] = useState(false);
@@ -17,7 +20,10 @@ const UpdateRecipe: React.FC = () => {
 				`https://smart-recipes.onrender.com/api/recipes/${id}`,
 				{
 					method: 'PATCH',
-					headers: { 'Content-Type': 'application/json' },
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${user.token}`,
+					},
 					body: JSON.stringify({ title, instructions }),
 				}
 			);

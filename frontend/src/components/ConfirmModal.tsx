@@ -1,3 +1,5 @@
+import React from 'react';
+
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
 	message,
 	handleCancel,

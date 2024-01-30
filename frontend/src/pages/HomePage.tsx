@@ -1,12 +1,12 @@
+import React, { useState } from 'react';
+import { FaSignOutAlt } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { logout } from '../slices/userSlice';
 import PageLink from '../components/PageLink';
 import listImg from '../assets/list.jpg';
 import tableImg from '../assets/table.jpg';
 import ConfirmModal from '../components/ConfirmModal';
 import Swal from 'sweetalert2';
-import { FaSignOutAlt } from 'react-icons/fa';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { logout } from '../slices/userSlice';
 
 function HomePage() {
 	const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function HomePage() {
 						dispatch(logout());
 						Swal.fire({
 							title: 'Signed out',
-							text: `You have succesfully signed out`,
+							text: `You have successfully signed out`,
 							icon: 'success',
 							showConfirmButton: false,
 							timer: 1500,
@@ -56,7 +56,7 @@ function HomePage() {
 						page='/view-recipes'
 						imgUrl={listImg}
 						action='View your recipes'
-						alt='Hand written notes'
+						alt='Handwritten notes'
 					/>
 				</div>
 			</div>

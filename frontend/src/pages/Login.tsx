@@ -1,7 +1,7 @@
-import Swal from 'sweetalert2';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login, logout } from '../slices/userSlice';
+import Swal from 'sweetalert2';
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState('');

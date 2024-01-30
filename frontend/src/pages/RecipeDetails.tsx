@@ -1,7 +1,9 @@
-import { formatDistanceToNow } from 'date-fns';
-import { useEffect, useState } from 'react';
-import { IoArrowBack } from 'react-icons/io5';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { formatDistanceToNow } from 'date-fns';
+import { IoArrowBack } from 'react-icons/io5';
+import { RootState } from '../store';
 import ConfirmModal from '../components/ConfirmModal';
 import Swal from 'sweetalert2';
 
@@ -10,9 +12,9 @@ const RecipeDetails: React.FC = () => {
 	const navigate = useNavigate();
 	const [selectedOption, setSelectedOption] = useState('');
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-
-	const recipe: SelectedRecipe = JSON.parse(
-		localStorage.getItem('recipe') || '{}'
+	const user = useSelector((state: RootState) => state.user.user);
+	const recipe: SelectedRecipe = useSelector(
+		(state: RootState) => state.recipe.recipe
 	);
 	const instructions = recipe.instructions.split('\n');
 
@@ -28,12 +30,14 @@ const RecipeDetails: React.FC = () => {
 				`https://smart-recipes.onrender.com/api/recipes/${id}`,
 				{
 					method: 'DELETE',
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
 				}
 			);
 			const data = await response.json();
 			if (data) {
 				console.log(data);
-				localStorage.removeItem('recipe');
 				navigate('/view-recipes');
 				Swal.fire({
 					title: 'Recipe deleted',

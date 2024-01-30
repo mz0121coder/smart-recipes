@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 import LoadingGame from '../components/LoadingGame';
 import ConfirmModal from '../components/ConfirmModal';
 
 const CreateRecipe: React.FC = () => {
-	const user = JSON.parse(localStorage.getItem('user') || 'null');
+	const user = useSelector((state: RootState) => state.user.user);
 	const navigate = useNavigate();
 	const [title, setTitle] = useState('');
 	const [instructions, setInstructions] = useState('');
