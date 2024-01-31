@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
@@ -8,8 +8,8 @@ import Login from './pages/Login';
 import CreateRecipe from './pages/CreateRecipe';
 import ViewRecipes from './pages/ViewRecipes';
 import RecipeDetails from './pages/RecipeDetails';
-import NotFound from './components/NotFound';
 import UpdateRecipe from './pages/UpdateRecipe';
+import NotFound from './components/NotFound';
 
 function App() {
 	const user = useSelector((state: RootState) => state.user.user);

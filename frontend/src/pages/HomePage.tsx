@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { logout } from '../slices/userSlice';
@@ -6,6 +6,7 @@ import PageLink from '../components/PageLink';
 import listImg from '../assets/list.jpg';
 import tableImg from '../assets/table.jpg';
 import ConfirmModal from '../components/ConfirmModal';
+import Animation from '../components/Animation/Animation';
 import Swal from 'sweetalert2';
 
 function HomePage() {
@@ -31,6 +32,7 @@ function HomePage() {
 					}}
 				/>
 			)}
+			{window.innerWidth > 700 && <Animation />}
 			<div className='my-6 flex flex-col justify-center items-center gap-10'>
 				<div className='flex gap-10 items-center'>
 					<h1 className='[@media(max-width:350px)]:text-[27px] text-3xl font-bold'>
