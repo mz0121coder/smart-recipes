@@ -16,6 +16,7 @@ const CreateRecipe: React.FC = () => {
 	const [showCancelModal, setShowCancelModal] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);
+	const [error, setError] = useState(false);
 
 	const specialDiets: string[] = [
 		'Vegetarian',
@@ -48,7 +49,8 @@ const CreateRecipe: React.FC = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const guidelines = `Please generate a great, customised recipe based on these guidelines:
+		if (title.length && servings > 0) {
+			const guidelines = `Please generate a great, customised recipe based on these guidelines:
 		Title: ${title}
 		Servings: ${servings}
 		Special Diet Requirements (optional): ${
@@ -57,36 +59,40 @@ const CreateRecipe: React.FC = () => {
 		Other instructions (optional): ${instructions.length > 0 ? instructions : ''}
 		
 		Your response should only consist of the recipe title, ingredients (unordered list) and instructions (numbered list of steps to follow)`;
-		try {
-			setIsLoading(true);
-			setIsPlaying(true);
-			const response = await fetch(
-				`https://smart-recipes.onrender.com/api/recipes`,
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: `Bearer ${user.token}`,
-					},
-					body: JSON.stringify({ title, instructions: guidelines }),
+			try {
+				setIsLoading(true);
+				setIsPlaying(true);
+				const response = await fetch(
+					`https://smart-recipes.onrender.com/api/recipes`,
+					{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							Authorization: `Bearer ${user.token}`,
+						},
+						body: JSON.stringify({ title, instructions: guidelines }),
+					}
+				);
+				const data = await response.json();
+				if (data && !('error' in data)) {
+					console.log(data);
+					setIsLoading(false);
+				} else {
+					setError(true);
 				}
-			);
-			const data = await response.json();
-			if (data) {
-				console.log(data);
+			} catch (error) {
+				console.log(error);
+				setError(true);
 				setIsLoading(false);
 			}
-		} catch (error) {
-			console.log(error);
-			setIsLoading(false);
 		}
 	};
 
 	return isPlaying ? (
 		<LoadingGame
 			isLoading={isLoading}
-			loadingMsg='Creating new recipe...'
-			loadedMsg='New recipe created!'
+			loadingMsg={error ? 'There was an error...' : 'Creating new recipe...'}
+			loadedMsg={error ? 'There was an error...' : 'New recipe created!'}
 		/>
 	) : (
 		<>
@@ -195,6 +201,7 @@ const CreateRecipe: React.FC = () => {
 						</button>
 						<button
 							type='submit'
+							disabled={!title.length && servings === 0}
 							className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md flex-1 h-[45px]'>
 							Create
 						</button>
