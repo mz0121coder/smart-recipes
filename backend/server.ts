@@ -10,15 +10,22 @@ import userRoutes from './routes/userRoutes';
 const app = express();
 const MONGO_URI: string | undefined = process.env.MONGO_URI;
 
-// middleware
-app.use(express.json());
+// enable CORS for all routes
 app.use(cors());
+
+// parse JSON bodies
+app.use(express.json());
+
+// middleware to log request path & method
 app.use((req, res, next) => {
 	console.log(req.path, req.method);
 	next();
 });
 
-// routes
+// test endpoint, no auth required
+app.get('/api/test', (req, res) => res.json({ message: 'This is a test' }));
+
+// main app routes, auth required
 app.use('/api/recipes', recipeRoutes);
 app.use('/api/user', userRoutes);
 

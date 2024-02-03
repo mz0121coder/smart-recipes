@@ -47,14 +47,14 @@ function HomePage() {
 				<h2 className='text-xl'>What would you like to do?</h2>
 				<div className='grid grid-cols-1 sm:grid-cols-2 gap-8 mb-4'>
 					<PageLink
-						description='Use AI to create a custom recipe!'
+						description='Create a new recipe with AI'
 						page='/create-recipe'
 						imgUrl={tableImg}
 						action='Create a recipe'
 						alt='Table of foods'
 					/>
 					<PageLink
-						description='View your saved recipes'
+						description='View or manage your recipes'
 						page='/view-recipes'
 						imgUrl={listImg}
 						action='View your recipes'

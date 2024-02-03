@@ -20,6 +20,22 @@ function App() {
 		if (localUser) dispatch(login(localUser));
 	}, [dispatch]);
 
+	/*
+	Render's free tier spins down after 15 minutes of inactivity, so a simple get request to the test endpoint is made when the app first renders, and then every 10 minutes while the session is active
+	*/
+	useEffect(() => {
+		const startTestServer = async () => {
+			const response = await fetch(
+				`https://smart-recipes.onrender.com/api/test`
+			);
+			const data = await response.json();
+			if (data && !('error' in data)) console.log('Test endpoint is active');
+		};
+		startTestServer();
+		const testInterval = setInterval(() => startTestServer(), 10 * 60 * 1000);
+		return () => clearInterval(testInterval);
+	}, []);
+
 	const isLoggedIn = user.token.length;
 
 	return (

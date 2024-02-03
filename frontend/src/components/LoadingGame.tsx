@@ -7,15 +7,15 @@ const LoadingGame: React.FC<LoadingGameProps> = ({
 	loadedMsg,
 }) => (
 	<div className='grid place-items-center h-screen'>
-		<div className='flex flex-col justify-center items-center gap-4'>
-			<h1 className='text-lg font-bold'>
+		<div className='flex flex-col justify-center items-center gap-6'>
+			<h1 className='text-2xl font-bold'>
 				{isLoading ? loadingMsg : loadedMsg}
 			</h1>
 			{!isLoading && (
 				<Link
 					to='/view-recipes'
-					className='flex justify-center items-center text-lg text-blue-900 hover:underline font-bold mb-4 bg-orange-500 hover:bg-red-900 rounded-xl transition-colors duration-300 ease-in-out px-6 py-2'>
-					View your recipes
+					className='flex justify-center items-center text-xl font-bold text-white bg-orange-600 hover:bg-orange-900 rounded-xl transition-colors duration-300 ease-in-out px-6 py-2 w-[200px] h-[60px]'>
+					View Recipes
 				</Link>
 			)}
 			<Snake
