@@ -95,7 +95,9 @@ const Login: React.FC = () => {
 				<h1 className='text-3xl font-bold' data-cy='login-page-h1'>
 					Smart Recipes
 				</h1>
-				<form className='bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[95vw] max-w-[375px]'>
+				<form
+					className='bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[95vw] max-w-[375px]'
+					data-cy='login-form'>
 					<div className='mb-4'>
 						<label
 							className='block text-gray-700 text-md font-bold mb-2'
