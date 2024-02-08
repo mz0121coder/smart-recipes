@@ -49,4 +49,4 @@ RECOMMENDED: use this password when signing up the first time `SmartRecipes1!`
 
 - Thunder client for testing requests to backend API routes
 - CodiumAI for debugging
-- I would like to implement some E2E testing with either Playwright or Cypress
+- I am working on E2E testing for the main user-flow with Cypress

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
@@ -10,8 +10,10 @@ import ViewRecipes from './pages/ViewRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import UpdateRecipe from './pages/UpdateRecipe';
 import NotFound from './components/NotFound';
+import Loader from './components/Loader';
 
 function App() {
+	const [isLoading, setIsLoading] = useState(true);
 	const user = useSelector((state: RootState) => state.user.user);
 	const dispatch = useDispatch();
 
@@ -21,7 +23,7 @@ function App() {
 	}, [dispatch]);
 
 	/*
-	Render's free tier spins down after 15 minutes of inactivity, so a simple get request to the test endpoint is made when the app first renders, and then every 10 minutes while the session is active
+	Make sure test server is running before app starts
 	*/
 	useEffect(() => {
 		const startTestServer = async () => {
@@ -29,16 +31,21 @@ function App() {
 				`https://smart-recipes.onrender.com/api/test`
 			);
 			const data = await response.json();
-			if (data && !('error' in data)) console.log('Test endpoint is active');
+			if (data && !('error' in data)) {
+				console.log('Test endpoint is active');
+				setIsLoading(false);
+			}
 		};
 		startTestServer();
-		const testInterval = setInterval(() => startTestServer(), 10 * 60 * 1000);
-		return () => clearInterval(testInterval);
+		// const testInterval = setInterval(() => startTestServer(), 10 * 60 * 1000);
+		// return () => clearInterval(testInterval);
 	}, []);
 
 	const isLoggedIn = user.token.length;
 
-	return (
+	return isLoading ? (
+		<Loader message='Starting server...' />
+	) : (
 		<>
 			<BrowserRouter>
 				<Routes>
