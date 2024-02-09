@@ -114,6 +114,7 @@ const CreateRecipe: React.FC = () => {
 						value={title}
 						onChange={e => setTitle(e.target.value)}
 						required
+						data-cy='create-recipe-title'
 					/>
 					<label
 						className='text-gray-700 ml-2 font-bold text-lg'
@@ -148,8 +149,11 @@ const CreateRecipe: React.FC = () => {
 							);
 						}}
 						required
+						data-cy='servings'
 					/>
-					<label className='text-gray-700 ml-2 font-bold my-2'>
+					<label
+						className='text-gray-700 ml-2 font-bold my-2'
+						data-cy='requirements-label'>
 						Special Diet Requirements (optional):
 					</label>
 					{requirements.length > 0 && (
@@ -158,7 +162,9 @@ const CreateRecipe: React.FC = () => {
 								className='grid grid-cols-[1fr_1fr] w-[90vw] max-w-[500px] overflow-scroll gap-2'
 								style={{ height: `${2 * requirements.length} px` }}>
 								{requirements.map((requirement, index) => (
-									<div key={index} className='flex items-center gap-1'>
+									<div
+										key={`${requirement}-${index}`}
+										className='flex items-center gap-1'>
 										<input
 											type='text'
 											className='text-sm font-bold bg-gray-100 border-2 border-gray-300 rounded-md p-1 w-[125px]'
@@ -169,6 +175,7 @@ const CreateRecipe: React.FC = () => {
 												updatedRequirements[index] = e.target.value;
 												setRequirements(updatedRequirements);
 											}}
+											data-cy={requirement.replace(/\s+/g, '-')}
 										/>
 										<button
 											type='button'
@@ -210,12 +217,14 @@ const CreateRecipe: React.FC = () => {
 				{showReqModal && (
 					<div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
 						<div className='bg-white p-4 rounded-md w-[95vw] max-w-[350px] text-center'>
-							<h2 className='text-lg font-bold mb-2'>
+							<h2 className='text-lg font-bold mb-2' data-cy='requirements-h2'>
 								Special Diet Requirements
 							</h2>
 							<div className='grid grid-cols-[1fr_1fr] gap-3'>
 								{specialDiets.map((diet, index) => (
-									<label key={index} className='flex items-center gap-2'>
+									<label
+										key={`${diet}-${index}`}
+										className='flex items-center gap-2'>
 										<input
 											type='checkbox'
 											className='form-checkbox h-4 w-4 text-blue-500'
@@ -230,6 +239,7 @@ const CreateRecipe: React.FC = () => {
 													);
 												}
 											}}
+											data-cy={`${diet.replace(/\s+/g, '-')}-checkbox`}
 										/>
 										{diet}
 									</label>
@@ -238,7 +248,8 @@ const CreateRecipe: React.FC = () => {
 							<button
 								type='button'
 								className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-4 w-[80%]'
-								onClick={() => setShowReqModal(false)}>
+								onClick={() => setShowReqModal(false)}
+								data-cy='confirm-create-btn'>
 								Confirm
 							</button>
 						</div>

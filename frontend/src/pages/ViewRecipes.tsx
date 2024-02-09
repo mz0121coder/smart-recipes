@@ -48,11 +48,16 @@ const ViewRecipes: React.FC = () => {
 						<IoArrowBack />
 					</div>
 				</Link>
-				<h1 className='text-3xl font-bold mb-4'>Recipes</h1>
+				<h1 className='text-3xl font-bold mb-4' data-cy='view-recipes-h1'>
+					Recipes
+				</h1>
 				<div></div>
 			</div>
 			<div className='flex items-center justify-center gap-4 mb-8'>
-				<label htmlFor='recipe-input' className='font-bold'>
+				<label
+					htmlFor='recipe-input'
+					className='font-bold'
+					data-cy='search-label'>
 					Search:
 				</label>
 				<input
@@ -69,6 +74,7 @@ const ViewRecipes: React.FC = () => {
 							)
 						);
 					}}
+					data-cy='search-input'
 				/>
 			</div>
 			{filteredRecipes &&
@@ -79,10 +85,17 @@ const ViewRecipes: React.FC = () => {
 						onClick={() => {
 							dispatch(selectRecipe(recipe));
 							navigate(`/view-recipes/${recipe._id}`);
-						}}>
+						}}
+						data-cy={`${recipe.title}-preview`}>
 						<div>
-							<h2 className='text-2xl font-bold mb-2'>{recipe.title}</h2>
-							<p className='text-gray-600 font-bold'>
+							<h2
+								className='text-2xl font-bold mb-2'
+								data-cy={`${recipe.title}-h2`}>
+								{recipe.title}
+							</h2>
+							<p
+								className='text-gray-600 font-bold'
+								data-cy={`${recipe.title}-updated-at`}>
 								{`Updated: ${formatDistanceToNow(new Date(recipe.updatedAt), {
 									addSuffix: true,
 								})}`}

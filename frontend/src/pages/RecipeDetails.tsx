@@ -68,7 +68,7 @@ const RecipeDetails: React.FC = () => {
 			<div className='flex flex-col justify-center items-center min-h-screen bg-gray-100'>
 				<div className='max-w-3xl w-[95%] bg-white shadow-md rounded-md p-6'>
 					<div className='flex justify-between items-start mb-4'>
-						<Link to='/view-recipes'>
+						<Link to='/view-recipes' data-cy='back-to-view-link'>
 							<div className='bg-gray-200 h-10 w-20 grid place-items-center rounded [transition:background_800ms] hover:bg-gray-500 cursor-pointer'>
 								<IoArrowBack />
 							</div>{' '}
@@ -76,10 +76,15 @@ const RecipeDetails: React.FC = () => {
 						<select
 							className='px-2 py-1 bg-gray-200 rounded-md h-10 w-30'
 							value={selectedOption}
-							onChange={e => setSelectedOption(e.target.value)}>
+							onChange={e => setSelectedOption(e.target.value)}
+							data-cy='recipe-options-select'>
 							<option value=''>Options</option>
-							<option value='update'>Update</option>
-							<option value='delete'>Delete</option>
+							<option value='update' data-cy='update-recipe-option'>
+								Update
+							</option>
+							<option value='delete' data-cy='delete-recipe-option'>
+								Delete
+							</option>
 						</select>
 					</div>
 					<h1 className='text-3xl font-bold mb-4 [@media(width<600px)]:text-2xl'>

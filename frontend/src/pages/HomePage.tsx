@@ -57,6 +57,7 @@ function HomePage() {
 						imgUrl={tableImg}
 						action='Create a recipe'
 						alt='Table of foods'
+						data-cy='create-recipe-link'
 					/>
 					<PageLink
 						description='View or manage your recipes'
@@ -64,6 +65,7 @@ function HomePage() {
 						imgUrl={listImg}
 						action='View your recipes'
 						alt='Handwritten notes'
+						data-cy='view-recipes-link'
 					/>
 				</div>
 			</div>

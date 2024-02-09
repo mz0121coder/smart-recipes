@@ -6,9 +6,13 @@ const LoadingGame: React.FC<LoadingGameProps> = ({
 	loadingMsg,
 	loadedMsg,
 }) => (
-	<div className='grid place-items-center h-screen'>
-		<div className='flex flex-col justify-center items-center gap-6'>
-			<h1 className='text-2xl font-bold'>
+	<div
+		className='grid place-items-center h-screen'
+		data-cy='loading-game-outer-div'>
+		<div
+			className='flex flex-col justify-center items-center gap-6'
+			data-cy='loading-game-inner-div'>
+			<h1 className='text-2xl font-bold' data-cy='loading-game-h1'>
 				{isLoading ? loadingMsg : loadedMsg}
 			</h1>
 			{!isLoading && (
@@ -23,6 +27,7 @@ const LoadingGame: React.FC<LoadingGameProps> = ({
 				color2='#1d355e'
 				backgroundColor='#ebebeb'
 				className='w-[90vw] h-[auto] max-w-[500px]'
+				data-cy='loading-game'
 			/>
 		</div>
 	</div>
