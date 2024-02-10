@@ -1,4 +1,4 @@
-describe('uses not found component for invalid pages', () => {
+describe('Uses not found component for invalid pages', () => {
 	it('visit invalid page without logging in', () => {
 		// go to invalid page, see correct message
 		cy.visit('/lkjfhlskfhgwri');
@@ -22,7 +22,7 @@ describe('uses not found component for invalid pages', () => {
 		);
 	});
 	it('visit invalid page after logging in', () => {
-		// from landing page, logging with test account
+		// from landing page, log in with test account
 		cy.visit('/login');
 		cy.get('[data-cy="email-input"]').type('test@smartrecipes.uk');
 		cy.get('[data-cy="password-input"]').type('Password1@');

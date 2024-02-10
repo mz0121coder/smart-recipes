@@ -127,6 +127,7 @@ const CreateRecipe: React.FC = () => {
 						placeholder='Enter recipe instructions'
 						value={instructions}
 						onChange={e => setInstructions(e.target.value)}
+						data-cy='instructions-input'
 					/>
 					<label
 						className='text-gray-700 ml-2 font-bold text-lg'
@@ -203,13 +204,15 @@ const CreateRecipe: React.FC = () => {
 						<button
 							type='button'
 							className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md flex-1 h-[45px]'
-							onClick={handleCancel}>
+							onClick={handleCancel}
+							data-cy='cancel-create-btn'>
 							Cancel
 						</button>
 						<button
 							type='submit'
 							disabled={!title.length && servings === 0}
-							className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md flex-1 h-[45px]'>
+							className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md flex-1 h-[45px]'
+							data-cy='confirm-create-btn'>
 							Create
 						</button>
 					</div>
@@ -249,7 +252,7 @@ const CreateRecipe: React.FC = () => {
 								type='button'
 								className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-4 w-[80%]'
 								onClick={() => setShowReqModal(false)}
-								data-cy='confirm-create-btn'>
+								data-cy='confirm-requirements-btn'>
 								Confirm
 							</button>
 						</div>
