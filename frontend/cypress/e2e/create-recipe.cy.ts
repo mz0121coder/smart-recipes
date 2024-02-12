@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Successfully creates a new recipe', () => {
 	it('log in, create new recipe, view in list, then sign out', () => {
 		// log in with test account, go to home page
