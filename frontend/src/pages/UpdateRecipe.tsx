@@ -59,21 +59,25 @@ const UpdateRecipe: React.FC = () => {
 						className='text-2xl font-bold bg-gray-100 border-2 rounded-md w-full h-[50px] border-gray-300 mb-2 pl-2 pt-1'
 						value={title}
 						onChange={e => setTitle(e.target.value)}
+						data-cy='title-textarea'
 					/>
 					<textarea
 						className='bg-gray-100 border-2 border-gray-300 rounded-md p-2 mb-4 w-full h-[100vw] max-h-[400px]'
 						value={instructions}
 						onChange={e => setInstructions(e.target.value)}
+						data-cy='instructions-textarea'
 					/>
 					<div className='flex justify-center gap-10'>
 						<button
 							className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md w-[40%]'
-							onClick={() => setShowConfirmCancel(true)}>
+							onClick={() => setShowConfirmCancel(true)}
+							data-cy='cancel-update-btn'>
 							Cancel
 						</button>
 						<button
 							className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md w-[40%]'
-							onClick={handleUpdate}>
+							onClick={handleUpdate}
+							data-cy='confirm-update-btn'>
 							Update
 						</button>
 					</div>

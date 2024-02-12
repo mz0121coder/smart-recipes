@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Uses not found component for invalid pages', () => {
 	it('visit invalid page without logging in', () => {
 		// go to invalid page, see correct message
